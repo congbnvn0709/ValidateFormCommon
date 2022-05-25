@@ -1,0 +1,62 @@
+<vt-manage-layout [self]="self">
+    <div search-form>
+        <div nz-form [formGroup]="form">
+            <div nz-row [nzGutter]="24">
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="name">{{'survey.survey_property_name_attribute' | translate}}</nz-form-label>
+                        <nz-form-control nzSpan="24">
+                            <input nz-input  trim="blur" #input placeholder="{{'survey.survey_property_name_attribute'| translate}}" formControlName="attName" id="name" maxlength="200"/>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="code">{{'survey.survey_property_code_attribute' | translate}}</nz-form-label>
+                        <nz-form-control nzSpan="24">
+                            <input nz-input  trim="blur" onkeyup="this.value=this.value.toUpperCase()" placeholder="{{'survey.survey_property_code_attribute'| translate}}" formControlName="attCode" id="code" maxlength="50"/>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="status">{{'survey.survey_property_status' | translate}}</nz-form-label>
+                        <nz-form-control nzSpan="24">
+                            <nz-select id="status" nzShowSearch nzAllowClear formControlName="status" nzPlaceHolder="{{'survey.survey_property_Select_data'| translate}}">
+                            <ng-container *ngFor="let item of ACTIVE_STATUS_OPTION">
+                                <nz-option [nzValue]="item.value" [nzLabel]="item.label | translate"></nz-option>
+                            </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="date">{{'survey.survey_property_created_date_from' | translate}}</nz-form-label>
+                        <nz-form-control nzSpan="24">
+                            <nz-date-picker [nzFormat]="FORMAT.DATE" formControlName="dateFrom" nzPlaceHolder="{{'survey.survey_property_created_date_from' | translate}}" class="w-100" [nzDisabledDate]="disableCurrentDate" *ngIf="!form.value.dateTo"></nz-date-picker>
+                            <nz-date-picker [nzFormat]="FORMAT.DATE" formControlName="dateFrom" nzPlaceHolder="{{'survey.survey_property_created_date_from' | translate}}" class="w-100" [nzDisabledDate]="disableDateFrom" *ngIf="form.value.dateTo"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="date">{{'survey.survey_property_created_date_to' | translate}}</nz-form-label>
+                        <nz-form-control nzSpan="24">
+                            <nz-date-picker [nzFormat]="FORMAT.DATE" nzPlaceHolder="{{'survey.survey_property_created_date_to' | translate}}" formControlName="dateTo" class="w-100" [nzDisabledDate]="disableDateTo" [nzDisabledDate]="disableCurrentDate"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <vt-show-errors [control]="form.controls['dateTo']" [controlName]="'survey.survey_property_created_date_from' | translate "
+                        [remnantControlName]="'survey.survey_property_created_date_to' | translate ">
+                    </vt-show-errors>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div table>
+        <vt-primary-table [setOfCheckedId]="setOfCheckedId" [columnData]="columnData"
+            [datasource]="dataSource" [actions]="actions" [pagination]="pagination" (actionKey)="onTriggerActionKey($event)"
+            (tableQueryParamsChange)="tableQueryParamsChange($event)">
+        </vt-primary-table>
+    </div>
+</vt-manage-layout>

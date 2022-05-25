@@ -1,0 +1,30 @@
+{
+  "message": {
+    "comment_001": "**************** Validation message ****************",
+    "required": "{{field}} is not empty",
+    "wrong_format": "{{field}} is incorect format",
+    "min_length": "{{field}} not allowed less than {{value}} character",
+    "max_length": "{{field}} not allowed more {{value}} character",
+    "max": "{{field}} not allowed to be less than {{value}}",
+    "min": "{{field}} no bigger than {{value}}",
+    "max_size": "The file size cannot be larger {{value}}Mb",
+    "duplicate": "{{objectName}} is exited",
+    "enter_number_only": "{{field}} only typing number",
+    "range": "Value of {{field}} must be between {{minValue}} to {{maxValue}}",
+    "pattern": "The value is not in the correct format",
+
+    "comment_002": "**************** Login message ****************",
+    "login_fail": "Login fail",
+    "invalid_account": "Account or password is incorect",
+    "require_check": "Please check again or contact the administrator for more information!",
+
+    "comment_003": "**************** Other ****************",
+    "confirm": "Do you want to take this action?",
+    "save_success": "Save success",
+    "save_fail": "Save fail",
+    "page_notfound": "Page not found",
+    "go_homepage": "Go to home page",
+    "have_error": "Have error occurs",
+    "comfirm_cancel": "Are you sure to cancel?"
+  }
+}

@@ -1,0 +1,60 @@
+<vt-base-layout>
+  <div class="vt-manage-page">
+    <ng-container *ngIf="self && self.form">
+      <form
+        class="vt-form"
+        nz-form
+        [formGroup]="self.form"
+        (ngSubmit)="self?.onSubmit()"
+        vtAutofocusInvalidField
+      >
+        <ng-content select="[search-form]"></ng-content>
+        <div nz-row>
+          <div nz-col [nzSpan]="24" class="button-list justify-content-end">
+            <button
+              nz-button
+              [nzType]="'primary'"
+              type="submit"
+              class="back-ground-btn"
+            >
+              <i nz-icon nzType="search" nzTheme="outline"></i>
+              {{ "common.search" | translate }}
+            </button>
+            <button nz-button type="reset" (click)="self?.onReset()">
+              <i nz-icon nzType="redo" nzTheme="outline"></i>
+              {{ "common.clear" | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+    <div class="search-result">
+      <div class="table-header mt-10 mb-10">
+        <div class="title-list">
+          <span class="title">{{ self?.listTitle | translate }}</span>
+        </div>
+        <div class="button-list justify-content-end">
+          <!-- <a [routerLink]="'create'"> -->
+          <button
+            nz-button
+            [nzType]="'primary'"
+            (click)="self?.onCreate()"
+            class="back-ground-btn"
+          >
+            <i nz-icon nzType="plus" nzTheme="outline"></i>
+            {{ "common.add_new" | translate }}
+          </button>
+          <!-- </a> -->
+          <!-- <button nz-button [nzType]="'primary'" (click)="onExportExcel()">
+          <i nz-icon nzType="file-excel" nzTheme="outline"></i>
+          {{ 'common.export' | translate }}
+        </button> -->
+        </div>
+      </div>
+      <div class="vt-table table-content">
+        <!-- table -->
+        <ng-content select="[table]"></ng-content>
+      </div>
+    </div>
+  </div>
+</vt-base-layout>

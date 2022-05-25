@@ -1,0 +1,73 @@
+<nz-layout class="main-layout">
+  <nz-sider nzCollapsible nzWidth="260px" *ngIf="!isSinglePage" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+    <!-- <vt-sidebar></vt-sidebar> -->
+    <div class="logo">
+      <a routerLink="/">
+        <ng-container *ngIf="isCollapsed; else elseLongLogo">
+          <b class="mock-logo">S</b>
+        </ng-container>
+        <ng-template #elseLongLogo>
+          <b class="mock-logo">Survey</b>
+        </ng-template>
+      </a>
+    </div>
+    <ul class="menu" nz-menu nzMode="inline" nzTheme="dark">
+      <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="'Dashboard'"
+        [nzSelected]="ROUTERS.DASHBOARD === activeKey">
+        <a [routerLink]="'/'">
+          <i nz-icon nzType="dashboard" nzTheme="outline"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li nz-submenu nzTitle="{{'common.scenario'| translate}}" nzIcon="appstore">
+        <ul>
+          <li nz-menu-item [nzSelected]="ROUTERS.SURVEY === activeKey">
+            <a [routerLink]="ROUTERS.SURVEY_MODULE + '/' + ROUTERS.SURVEY">
+              <i nz-icon nzType="pie-chart" nzTheme="outline"></i>
+              <span>
+                {{ 'survey_management.survey_mng' | translate }}
+              </span>
+            </a>
+          </li>
+          <li nz-menu-item [nzSelected]=" ROUTERS.PROPERTY === activeKey">
+            <a [routerLink]="ROUTERS.SURVEY_MODULE + '/' + ROUTERS.PROPERTY">
+              <i nz-icon nzType="pie-chart" nzTheme="outline"></i>
+              <span>
+                {{ 'survey.attribute_management' | translate }}
+              </span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li nz-menu-item>
+        <a [routerLink]="ROUTERS.BUSINESS_TYPE">
+          <i nz-icon nzType="pie-chart" nzTheme="outline"></i>
+          <span>{{'common.business' | translate}}</span>
+        </a>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header *ngIf="!isSinglePage" class="vt-header">
+      <span class="pointer" (click)="isCollapsed = !isCollapsed">
+        <i class="trigger cl-white" nz-icon nzType="menu" nzTheme="outline"></i>
+      </span>
+      <vt-header></vt-header>
+    </nz-header>
+    <nz-content>
+      <ng-container *ngIf="!isSinglePage">
+        <div class="vt-breadcrumb mb-10">
+          <nz-breadcrumb [nzAutoGenerate]="true" [nzRouteLabelFn]="translateFn">
+          </nz-breadcrumb>
+        </div>
+      </ng-container>
+      <!-- <div class="inner-content" [ngClass]="{'single-page': isSinglePage}">
+        <router-outlet></router-outlet>
+      </div> -->
+      <router-outlet></router-outlet>
+    </nz-content>
+    <nz-footer class="vt-footer" *ngIf="!isSinglePage">
+      <vt-footer></vt-footer>
+    </nz-footer>
+  </nz-layout>
+</nz-layout>

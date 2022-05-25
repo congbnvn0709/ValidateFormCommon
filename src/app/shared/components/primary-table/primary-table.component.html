@@ -1,0 +1,146 @@
+<!-- pageIndex: {{pagination.pageIndex}} | pageSize: {{pagination.pageSize}} | total: {{pagination.total}} -->
+<nz-table
+  #vtTable
+  [nzTotal]="50"
+  nzBordered
+  nzSize="small"
+  [nzData]="datasource"
+  [nzShowPagination]="false"
+  [nzFooter]="footer"
+  [nzPageIndex]="pagination.pageIndex"
+  [nzPageSize]="pagination.pageSize"
+  [nzLoading]="isLoading"
+  [nzScroll]="{ x: '1477px', y: isTableScrollY }"
+  nzTableLayout="fixed"
+  (nzQueryParams)="onQueryParamsChange($event)"
+>
+  <thead>
+    <tr>
+      <ng-container *ngIf="checkboxKey">
+        <th
+          nzWidth="30px"
+          [nzChecked]="isCheckedAll"
+          [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="onAllChecked($event)"
+        ></th>
+      </ng-container>
+      <th nzWidth="50px" [nzAlign]="'center'">
+        {{ "common.no" | translate }}
+      </th>
+      <ng-container *ngIf="actions && actions.length">
+        <th nzWidth="100px" [nzAlign]="'center'">
+          {{ "common.action" | translate }}
+        </th>
+      </ng-container>
+      <ng-container *ngFor="let column of columnData; let i = index">
+        <ng-container *ngIf="column.isSort === false; else elseTemplate">
+          <th
+            class="vt-column {{ column?.elementClass }}"
+            [nzAlign]="column.align"
+            [nzColumnKey]="column?.sortKey"
+            [nzWidth]="column?.width || '200px'"
+          >
+            {{ column.title | translate }}
+          </th>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <th
+            class="vt-column {{ column?.elementClass }}"
+            [nzAlign]="column.align"
+            [nzColumnKey]="column?.sortKey"
+            [nzWidth]="column?.width || '200px'"
+            [nzSortFn]="true"
+          >
+            {{ column.title | translate }}
+          </th>
+        </ng-template>
+      </ng-container>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of datasource; index as index">
+      <ng-container *ngIf="checkboxKey">
+        <td
+          [nzChecked]="setOfCheckedId.has(data[checkboxKey])"
+          (nzCheckedChange)="onItemChecked(data[checkboxKey], $event)"
+        ></td>
+      </ng-container>
+      <td [nzAlign]="'center'">
+        {{ (pagination.pageIndex - 1) * pagination.pageSize + index + 1 }}
+      </td>
+      <ng-container *ngIf="actions && actions.length">
+        <td [nzAlign]="'center'">
+          <div class="wrap-actions">
+            <ng-container *ngFor="let action of actions">
+              <!-- <ng-container *ngIf="action.type === 'link'; else elseAction">
+              <a [routerLink]="action.actionKey" routerLinkActive="router-link-active"  nz-tooltip [nzTooltipTitle]="action.tooltip">
+                <i nz-icon [nzType]="action.icon" nzTheme="outline"></i>
+              </a>
+            </ng-container>
+            <ng-template #elseAction>
+              <span nz-tooltip [nzTooltipTitle]="action.tooltip" (click)="onTriggerAction(action.actionKey)">
+                <i nz-icon [nzType]="action.icon" nzTheme="outline"></i>
+              </span>
+            </ng-template> -->
+              <span
+                nz-tooltip
+                [nzTooltipTitle]="action.tooltip | translate"
+                (click)="onTriggerAction(action.actionKey, data)"
+              >
+                <i nz-icon [nzType]="action.icon" nzTheme="outline"></i>
+              </span>
+            </ng-container>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container *ngFor="let column of columnData">
+        <ng-container [ngSwitch]="column.type">
+          <ng-container *ngSwitchCase="TABLE_KEYS.DATE">
+            <td
+              [nzAlign]="column.align"
+              nz-tooltip
+              [nzTooltipTitle]="
+                data[column.propertyName]
+                  | date: column.format || DATE_FORMAT.DATE
+              "
+            >
+              {{
+                data[column.propertyName]
+                  | date: column.format || DATE_FORMAT.DATE
+              }}
+            </td>
+          </ng-container>
+          <ng-container *ngSwitchCase="TABLE_KEYS.CHECKBOX">
+            <td [nzAlign]="column.align">
+              <label
+                class="vt-checkbox"
+                nz-checkbox
+                nzDisabled
+                [nzChecked]="data[column.propertyName]"
+              ></label>
+            </td>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <td
+              class="vt-column"
+              [nzAlign]="column.align"
+              nz-tooltip
+              [nzTooltipTitle]="data[column.propertyName]"
+            >
+              <span class="text-nowrap">{{ data[column.propertyName] }}</span>
+            </td>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </tr>
+  </tbody>
+  <ng-template #footer>
+    <vt-pagination
+      [(pageIndex)]="pagination.pageIndex"
+      [(pageSize)]="pagination.pageSize"
+      [total]="pagination.total"
+    >
+    </vt-pagination>
+  </ng-template>
+</nz-table>
+<!-- <a [routerLink]="'/routePath'" ></a> -->

@@ -1,0 +1,88 @@
+<div class="p-5 m-10 border common_box_shadow detail">
+    <div class="infor-script">
+        <p class="title-script common_position pl-20 pr-20">{{'survey_management.info' | translate}}</p>
+        <div class="script-top p-16">
+            <div class="d-flex items">
+                <p>{{ 'survey_management.code' | translate }} :</p>
+                <p>{{dtSurveyForm?.surveyFormCode }}</p>
+            </div>
+            <div class="d-flex items">
+                <p>{{ 'survey_management.name' | translate }} :</p>
+                <p>{{dtSurveyForm?.surveyFormName}}</p>
+            </div>
+            <div class="d-flex items">
+                <p>{{ 'survey_management.type' | translate }} :</p>
+                <p>{{(dtSurveyForm?.surveyFormType == 1? 'SMS' : "WEB") | translate}}</p>
+            </div>
+            <div class="d-flex items">
+                <p>{{ 'survey_management.description' | translate }} :</p>
+                <p>{{dtSurveyForm?.description}}</p>
+            </div>
+            <div class="d-flex items">
+                <p>{{ 'common.status' | translate }} :</p>
+                <p>{{(dtSurveyForm?.status == 1? 'survey.active' : "survey.inactive") | translate}}</p>
+            </div>
+        </div>
+        <div class="mx-4 pl-16 pr-16">
+            <nz-collapse class="collapase fs-15 py-4">
+                <nz-collapse-panel *ngFor="let section of dtQuestion; let i = index" [nzHeader]="section.sectionName" class="question pt-4" [class.mt-25]="i > 0">
+                    <p class="ms-3 mt-2 position-absolute top-0 start-0">
+                        <span class="me-2">{{ 'survey_management.id_question_detail' | translate }}</span>
+                        <span>{{section.sectionId}}</span>
+                    </p>
+                    <p class="title-question common_position pl-20 pr-20 mb-0">{{ 'survey_management.section' | translate }} {{i + 1}}/{{dtQuestion.length}}</p>
+                    <p class="border-bottom text-secondary pb-2" *ngIf="section.description">{{section.description}}</p>
+                    <div>
+                        <nz-collapse class="nz-collapse">
+                            <nz-collapse-panel *ngFor="let question of section.listQuestion; let i = index"
+                                nzHeader="{{'survey_management.question' | translate}} {{i+1}}: {{question.content}}" class="nz-collapse-panel common_box_shadow mt-3"
+                            >
+                                <p class="idQuestion">
+                                    <span class="me-2">{{ 'survey_management.id_question_detail' | translate }}</span>
+                                    <span>{{question.questionId}}</span>
+                                </p>
+                                <ng-container *ngFor="let sub of question.listSubQuestion">
+                                    <div nz-row [nzGutter]="24">
+                                        <div nz-col [nzSpan]="13" *ngIf="question.type !== 2">
+                                            <nz-radio-group *ngIf="question.type == 3">
+                                                <label nz-radio nzDisabled [nzValue]="sub.choiceContent">{{sub.choiceContent}}</label>
+                                            </nz-radio-group>
+                                            <label nz-checkbox nzDisabled class="mt-2" *ngIf="question.type == 4">{{sub.choiceContent}}</label>
+                                            <p class="mb-0 text-secondary mt-2" *ngIf="sub.answerLimitLength && question.type == 1">{{'survey_management.limit_character' | translate}} : {{sub.answerLimitLength}}</p>
+                                        </div>
+                                        <div nz-col [nzSpan]="6" class="mt-2" *ngIf="question.type == 2">
+                                            <label>
+                                                {{ 'survey_management.from_question_detail' | translate}} 
+                                                <span class="mx-3">{{sub.fromPoint}}</span> 
+                                                {{ 'survey_management.to_question_detail' | translate}}
+                                                <span class="mx-3">{{sub.toPoint}}</span>
+                                            </label>
+                                        </div>
+                                        <div nz-col [nzSpan]="7" class="mt-2" *ngIf="question.type == 2">
+                                            <p class="mb-0 continue length-height w-100 px-4">{{sub.description}}</p>
+                                        </div>
+                                        <div nz-col [nzSpan]="11" class="mt-2 d-flex justify-content-end">
+                                            <span>{{'survey_management.continue_section_2' | translate}}</span>
+                                            <p class="continue length-width mx-2 mb-0 px-2">{{sub.nextSectionOrder}}</p>
+                                            <span>{{'survey_management.continue_question' | translate}}</span>
+                                            <p class="continue length-width mx-2 mb-0 px-2">{{sub.nextQuestionOrder}}</p>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </nz-collapse-panel>
+                        </nz-collapse>
+                    </div>
+                    <p class="mt-3 ms-4" *ngIf="section.nextSectionOrder"> 
+                        <span class="me-4">{{ 'survey_management.after_section' | translate }}: </span> <span>{{section.nextSectionOrder}}</span>
+                    </p>
+                </nz-collapse-panel>
+            </nz-collapse>
+        </div> 
+        <div class="d-flex justify-content-end me-5 mb-20">
+            <button nz-button [nzType]="'default'" class="d-flex align-items-center" (click)="onBack()">
+                <i nz-icon [nzType]="'close-circle'" nzTheme="outline"></i>
+                {{ 'common.close' | translate }}
+            </button>
+        </div>
+    </div>
+</div>

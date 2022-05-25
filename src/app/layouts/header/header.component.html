@@ -1,0 +1,87 @@
+<div class="app-header">
+  <nz-space [nzSplit]="spaceSplit" class="header-right">
+    <ng-template #spaceSplit>
+      <nz-divider nzType="vertical"></nz-divider>
+    </ng-template>
+
+    <div nz-typography>
+      <span nz-dropdown nzTrigger="click" [nzDropdownMenu]="lang" nzPlacement="bottomRight"
+        class="pointer change-language pr-10">
+        <img class="flag current-flag" src="assets/icons/{{currentLang?.icon}}" alt="flags">
+        <span class="cl-white">
+          {{ 'common.language' | translate }}
+        </span>
+        <!-- {{ 'common_lang.change_language' | translate }} -->
+      </span>
+      <nz-dropdown-menu #lang="nzDropdownMenu">
+        <ul nz-menu>
+          <ng-container *ngFor="let lang of LANGUAGES_DATA">
+            <li nz-menu-item (click)="onChangeLanguage(lang)" class="lang-item">
+              <img class="flag" src="assets/icons/{{lang.icon}}" alt="flags">
+              {{lang.name}}
+            </li>
+          </ng-container>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+    <div>
+      <div class="pointer" nz-dropdown [nzDropdownMenu]="profile" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
+        <nz-avatar class="pointer avatar" nzSize="large" nzIcon="user" nz-dropdown nzPlacement="bottomRight">
+        </nz-avatar>
+      </div>
+      <nz-dropdown-menu #profile="nzDropdownMenu" nzOverlayClassName="user-dropdown">
+        <ul nz-menu class="user-dropdown-menu">
+          <li class="user-info">
+            <div class="user-avatar">
+              <nz-avatar class="sub-avatar" nzSize="small" nzIcon="user" nz-dropdown nzPlacement="bottomRight">
+              </nz-avatar>
+              <div>
+                <span>
+                  Viettel's Admin
+                </span>
+              </div>
+            </div>
+          </li>
+          <li nz-menu-item  (click)="onSetting()">
+            <span class="user-option">
+              <i nz-icon nzType="setting" nzTheme="outline"></i>
+              <span class="m-l-10">
+                {{ 'common.setting' | translate }}
+              </span>
+            </span>
+          </li>
+          <li nz-menu-item (click)="onLogout()">
+            <span class="user-option">
+              <i nz-icon nzType="logout" theme="outline"></i>
+              <span class="m-l-10">
+                {{ 'common.logout' | translate }}
+              </span>
+            </span>
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+  </nz-space>
+</div>
+
+
+<nz-drawer [nzClosable]="false" [nzVisible]="isVisible" nzPlacement="right" nzTitle="{{ 'common.setting' | translate }}"
+  (nzOnClose)="onCloseDrawer()">
+  <ng-container *nzDrawerContent>
+    <div>
+      <div class="title">
+        {{ 'common.language' | translate }}
+      </div>
+      <div class="mt-20">
+        <nz-radio-group [(ngModel)]="currentLang" (ngModelChange)="onChangeLanguage()">
+          <ng-container *ngFor="let lang of LANGUAGES_DATA">
+            <label nz-radio [nzValue]="lang">
+              <img class="flag" src="assets/icons/{{lang.icon}}" alt="flags">
+              <span>{{lang.name}}</span>
+            </label>
+          </ng-container>
+        </nz-radio-group>
+      </div>
+    </div>
+  </ng-container>
+</nz-drawer>

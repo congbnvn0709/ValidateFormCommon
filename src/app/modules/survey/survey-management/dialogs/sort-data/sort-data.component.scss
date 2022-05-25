@@ -1,0 +1,35 @@
+.sort-item {
+  display: flex;
+  justify-content: flex-start;
+  border-top: 1px solid #ddd;
+  padding: 6px 0;
+
+  .draw {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    cursor: move;
+  }
+
+  &:last-child {
+    border-bottom: 1px solid #ddd;
+  }
+}
+.dndList {
+  transition: all 300ms ease;
+  padding: 5px;
+
+  &:not(.horizontal) {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+.dndPlaceholder {
+  min-height: 30px;
+  border: 1px dashed green;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.no-data {
+  padding: 10px;
+}

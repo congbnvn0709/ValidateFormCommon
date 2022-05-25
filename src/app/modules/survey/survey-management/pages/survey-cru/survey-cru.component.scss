@@ -1,0 +1,66 @@
+@import '../../../../../shared/styles/variable.scss';
+
+.fix-height-of-content {
+  margin-top: 20px;
+}
+.wrap-survey-info {
+  border-top: 6px solid $cl-logo-orange;
+  border-radius: 0 7px 7px 7px;
+  border: 1px solid #fff;
+
+  .survey-title {
+    padding: 2px 20px 0 20px;
+    background-color: $cl-logo-orange;
+
+    @mixin mock {
+      background-color: $cl-logo-orange;
+    }
+
+    &:after {
+      @include mock();
+    }
+    &:before {
+      @include mock();
+    }
+  }
+
+
+
+  .section-scroll {
+    position: fixed;
+    right: 14px;
+    top: 200px;
+    background-color: #efffff;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 5px;
+    border: 1px dotted $cl-blue-tertiary;
+  }
+
+  .survey-info {
+    border-top: 6px solid $cl-blue-secondary;
+
+    .survey-info-title {
+      padding: 2px 20px 0 20px;
+      background-color: $cl-blue-secondary;
+
+      @mixin mock {
+        background-color: $cl-blue-secondary;
+      }
+
+      &:after {
+        @include mock()
+      }
+      &:before {
+        @include mock()
+      }
+    }
+  }
+}
+
+.wrap-config-survey {
+  margin-top: 50px;
+}
+

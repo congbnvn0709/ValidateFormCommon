@@ -1,0 +1,13 @@
+@import './../../styles/variable.scss';
+
+.anticon {
+  color: $cl-warning;
+  font-size: 44px;
+}
+
+.dialog-content {
+  align-items: baseline;
+}
+.dialog-btn {
+  min-width: 75px;
+}

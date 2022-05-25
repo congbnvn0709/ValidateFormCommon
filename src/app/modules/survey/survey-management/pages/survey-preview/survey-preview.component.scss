@@ -1,0 +1,85 @@
+@import "../../../../../shared/styles/variable.scss";
+
+.preview-content {
+  display: flex;
+  justify-content: center;
+}
+
+.wrap-survey-info {
+  border-top: 6px solid $cl-logo-orange;
+  border-radius: 0 7px 7px 7px;
+  border: 1px solid #fff;
+
+  @mixin blue-color {
+    background-color: $cl-blue-secondary;
+  }
+  .blue-title {
+    padding: 2px 20px 0 20px;
+    @include blue-color();
+
+    &:after {
+      @include blue-color();
+    }
+    &:before {
+      @include blue-color();
+    }
+  }
+  .orange-title {
+    padding: 2px 20px 0 20px;
+    background-color: $cl-logo-orange;
+
+    @mixin mock {
+      background-color: $cl-logo-orange;
+    }
+
+    &:after {
+      @include mock();
+    }
+    &:before {
+      @include mock();
+    }
+  }
+
+  .survey-info {
+    border-top: 6px solid $cl-blue-secondary;
+
+    .survey-info-title {
+      padding: 2px 20px 0 20px;
+      background-color: $cl-blue-secondary;
+
+      @mixin mock {
+        background-color: $cl-blue-secondary;
+      }
+
+      &:after {
+        @include mock();
+      }
+      &:before {
+        @include mock();
+      }
+    }
+  }
+  .section-border {
+    border-radius: 0 7px 7px 7px;
+  }
+}
+.second-up {
+  margin-top: 50px;
+}
+
+.question-content {
+  padding: 20px;
+  border: 1px solid $cl-gray-secondary;
+  border-left: 6px solid $cl-blue-secondary;
+  border-radius: 6px;
+}
+
+.clear-user-answer {
+  margin-top: 10px;
+  text-align: right;
+  color: $cl-blue-secondary;
+}
+.range-description {
+  display: inline-block;
+  margin-top: 5px;
+}

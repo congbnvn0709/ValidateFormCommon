@@ -1,0 +1,30 @@
+// .vt-form {
+//   height: calc(100% - 28px);
+// }
+
+.small-page {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+
+  .inner-form {
+    height: max-content;
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .small-page {
+    .inner-form {
+      width: 85%;
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .small-page {
+    .inner-form {
+      width: 100%;
+    }
+  }
+}

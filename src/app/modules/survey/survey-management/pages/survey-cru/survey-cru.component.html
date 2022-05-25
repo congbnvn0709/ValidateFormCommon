@@ -1,0 +1,114 @@
+<vt-crud-layout [self]="self">
+  <div class="fix-height-of-content mb-20">
+    <div class="fix-height-of-content">
+      <div class="vt-block wrap-survey-info box-shadow">
+        <div class="vt-block-title survey-title title">
+          <b>{{ 'survey_management.info' | translate }}</b>
+        </div>
+        <div [formGroup]="form" *ngIf="form">
+          <!-- Mã chứng từ -->
+          <div class="vt-block border survey-info mt-20">
+            <div nz-row [nzGutter]="24">
+              <div nz-col nzSm="24" nzLg="12">
+                <nz-form-item class="required-control">
+                  <nz-form-label nzSpan="24" nzFor="surveyFormCode" nzRequired>
+                    <span>{{ 'survey_management.code' | translate }}</span>
+                    <!-- <span class="tip-info" nz-popover nzType="primary"
+                      nzPopoverContent="Chỉ được phép nhập chữ, số và dấu gạch dưới">
+                      <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+                    </span> -->
+                  </nz-form-label>
+                  <nz-form-control nzSpan="24">
+                    <input nz-input placeholder="{{ 'survey_management.code' | translate }}"
+                      formControlName="surveyFormCode" id="surveyFormCode" maxlength="200" vtUppercase vtAutofocus
+                      trim="blur" />
+                    <vt-show-errors [control]="form.controls['surveyFormCode']"
+                      [controlName]="'survey_management.code' | translate ">
+                    </vt-show-errors>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <!-- Tên chứng từ -->
+              <div nz-col nzSm="24" nzLg="12">
+                <nz-form-item class="required-control">
+                  <nz-form-label nzSpan="24" nzFor="surveyFormName" nzRequired>
+                    {{ 'survey_management.name' | translate }}
+                  </nz-form-label>
+                  <nz-form-control nzSpan="24">
+                    <input nz-input placeholder="{{ 'survey_management.name' | translate }}"
+                      formControlName="surveyFormName" id="surveyFormName" maxlength="200" trim="blur" />
+                    <vt-show-errors [control]="form.controls['surveyFormName']"
+                      [controlName]="'survey_management.name' | translate ">
+                    </vt-show-errors>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <!-- Loại -->
+              <div nz-col nzSm="24" nzLg="12">
+                <nz-form-item class="required-control">
+                  <nz-form-label nzSpan="24" nzFor="surveyFormType" nzRequired>
+                    {{ 'survey_management.type' | translate }}
+                  </nz-form-label>
+                  <nz-form-control nzSpan="24">
+                    <nz-select id="surveyFormType" nzShowSearch nzAllowClear formControlName="surveyFormType"
+                      nzPlaceHolder=" {{ 'common.select' | translate }}" (ngModelChange)="onSurveyTypeChange($event)">
+                      <ng-container *ngFor="let item of SURVEY_TYPE">
+                        <nz-option [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+                      </ng-container>
+                    </nz-select>
+                    <vt-show-errors [control]="form.controls['surveyFormType']"
+                      [controlName]="'survey_management.type' | translate">
+                    </vt-show-errors>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <!-- Trạng thái -->
+              <div nz-col nzSm="24" nzLg="12" *ngIf="routerData.mode === modes.EDIT">
+                <nz-form-item class="required-control">
+                  <nz-form-label nzSpan="24" nzFor="surveyFormType" nzRequired>
+                    {{ 'common.status' | translate }}
+                  </nz-form-label>
+                  <nz-form-control nzSpan="24">
+                    <nz-select id="surveyFormType" nzShowSearch nzAllowClear formControlName="status"
+                      nzPlaceHolder=" {{ 'common.select' | translate }}">
+                      <ng-container *ngFor="let item of STATUS_DATA">
+                        <nz-option [nzValue]="item.value" [nzLabel]="item.label | translate"></nz-option>
+                      </ng-container>
+                    </nz-select>
+                    <vt-show-errors [control]="form.controls['status']" [controlName]="'common.status' | translate">
+                    </vt-show-errors>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <!-- Mô tả -->
+              <div nz-col nzSm="24" nzLg="12">
+                <nz-form-item>
+                  <nz-form-label nzSpan="24" nzFor="description">
+                    {{ 'common.description' | translate }}
+                  </nz-form-label>
+                  <nz-form-control nzSpan="24">
+                    <textarea nz-input name="description" id="description" rows="1" formControlName="description"
+                      placeholder="{{ 'common.description' | translate }}" maxlength="500" trim="blur"></textarea>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wrap-config-survey">
+          <vt-section [form]="form"  *ngIf="form"></vt-section>
+        </div>
+        <div class="section-scroll">
+          <span class="pointer" (click)="onAddQuestion()" nz-tooltip
+            nzTooltipTitle="{{ 'survey_management.add_question' | translate }}">
+            <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+          </span>
+          <span class="pointer" (click)="onAddSection()" nz-tooltip
+            nzTooltipTitle="{{ 'survey_management.add_section' | translate }}">
+            <i nz-icon nzType="pic-center" nzTheme="outline"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</vt-crud-layout>

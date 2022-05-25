@@ -1,0 +1,156 @@
+<div [formGroup]="form">
+  <div class="fix-height-of-content" formArrayName="listQuestion">
+    <ng-container *ngFor="let questionForm of form.controls['listQuestion'].controls; index as index">
+      <div class="wrap-question">
+        <div class="questions"
+          [ngClass]="{'active': sectionIndex === currentSectionIndex && currentQuestionIndex === index}"
+          [formGroupName]="index" (click)="onClickQuestion(index)">
+          <div class="question-header block-header">
+            <div class="pointer sort cl-blue d-flex" (click)="onSortQuestion(index)">
+              <span>{{ 'survey_management.question_order' | translate }}</span>
+              <span class="pl-10 d-flex align-items-center">
+                <i nz-icon nzType="sort-descending" nzTheme="outline"></i>
+              </span>
+            </div>
+            <span class="pointer header-remove-btn" *ngIf="form.controls['listQuestion'].controls.length > 1"
+              (click)="onRemoveQuestion(index)" nz-tooltip nzTooltipTitle="{{ 'survey_management.delete_question' | translate }}">
+              <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+            </span>
+          </div>
+          <div class="drag-area">
+            <b class="ml-10">{{ 'survey_management.question_number' | translate }} {{index + 1}}</b>
+          </div>
+          <div nz-row [nzGutter]="24">
+            <div nz-col nzSm="24" nzLg="12">
+              <nz-form-item class="required-control">
+                <nz-form-label nzSpan="24" nzFor="content" nzRequired>
+                  {{ 'survey_management.question' | translate }}
+                </nz-form-label>
+                <nz-form-control nzSpan="24">
+                  <textarea nz-input name="content" id="content" cols="3" formControlName="content"
+                    placeholder="{{ 'survey_management.question' | translate }}" maxlength="1000" trim="blur"></textarea>
+                  <vt-show-errors [control]="questionForm.controls['content']"
+                    [controlName]="'survey_management.question' | translate ">
+                  </vt-show-errors>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item class="required-control">
+                <nz-form-label nzSpan="24" nzFor="type" nzRequired>
+                  {{ 'survey_management.question_type' | translate }}
+                </nz-form-label>
+                <nz-form-control nzSpan="24">
+                  <nz-select id="type" nzShowSearch nzAllowClear formControlName="type" nzPlaceHolder="{{ 'common.select' | translate }}"
+                    (ngModelChange)="onQuestionTypeChange($event, index)">
+                    <ng-container *ngFor="let item of questionType">
+                      <nz-option nzCustomContent [nzValue]="item.value" [nzLabel]="item.label | translate">
+                        <div class="custome-option">
+                          <span [ngSwitch]="item.value" class="option-icon">
+                            <ng-container *ngSwitchCase="1">
+                              <i nz-icon nzType="align-left" nzTheme="outline"></i>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="2">
+                              <i nz-icon nzType="rise" nzTheme="outline"></i>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="3">
+                              <i nz-icon nzType="check-circle" nzTheme="outline"></i>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="4">
+                              <i nz-icon nzType="check-square" nzTheme="outline"></i>
+                            </ng-container>
+                          </span>
+                          {{item.label | translate}}
+                        </div>
+                      </nz-option>
+                    </ng-container>
+                  </nz-select>
+                  <vt-show-errors [control]="questionForm.controls['type']"
+                    [controlName]="'survey_management.question_type' | translate ">
+                  </vt-show-errors>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <!-- Thuộc tính -->
+            <div nz-col nzSm="24" nzLg="12">
+              <div formArrayName="listAttributes" class="properties">
+                <ng-container
+                  *ngFor="let attForm of questionForm.controls.listAttributes.controls; index as idx">
+                  <div [formGroupName]="idx" class="property">
+                    <div class="property-input">
+                      <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="attId" nzRequired>
+                          {{ 'survey_management.attribute' | translate }} {{attForm.controls.attOrder.value}}
+                        </nz-form-label>
+                        <nz-form-control nzSpan="24">
+                          <nz-select id="attId" nzShowSearch nzAllowClear formControlName="attId"
+                            nzPlaceHolder="{{ 'common.select' | translate }}">
+                            <ng-container *ngFor="let item of attributeList">
+                              <nz-option [nzValue]="item.attId" [nzLabel]="item.attCode + '_' + item.attName"></nz-option>
+                            </ng-container>
+                          </nz-select>
+                          <vt-show-errors [control]="attForm.controls.attId"
+                            [controlName]="'survey_management.attribute' | translate ">
+                          </vt-show-errors>
+                        </nz-form-control>
+                      </nz-form-item>
+                    </div>
+                    <div class="btn-remove-property">
+                      <span class="pointer" (click)="onRemoveProperty(index, idx)" nz-tooltip
+                        nzTooltipTitle="{{ 'survey_management.delete_attribute' | translate }}">
+                        <i nz-icon nzType="minus-circle" nzTheme="outline"></i>
+                      </span>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="mt-10">
+                <div
+                  [ngClass]="{'no-param': questionForm.controls.listAttributes.controls.length === 0}">
+                  <span class="pointer cl-blue" (click)="onAddProperty(index)">
+                    {{ 'survey_management.add_attribute' | translate }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- <div nz-col nzSm="24" nzLg="12">
+
+              </div> -->
+          </div>
+          <div>
+            <div class="mt-10 mb-10" *ngIf="questionForm.controls.type.value">
+              <span>{{ 'survey_management.config_answer' | translate }}</span>
+            </div>
+            <div [ngSwitch]="questionForm.controls.type.value">
+              <ng-container *ngSwitchCase="QUESTION_TYPE.SINGLE">
+                <vt-section-question-choice [form]="questionForm"
+                  [questionType]="'single'" [sectionUniqueCode]="sectionUniqueCode" [questionIndex]="index">
+                </vt-section-question-choice>
+              </ng-container>
+              <ng-container *ngSwitchCase="QUESTION_TYPE.MULTIPLE">
+                <vt-section-question-choice [form]="questionForm"
+                  [questionType]="'multiple'" [sectionUniqueCode]="sectionUniqueCode" [questionIndex]="index">
+                </vt-section-question-choice>
+              </ng-container>
+              <ng-container *ngSwitchCase="QUESTION_TYPE.POINT">
+                <vt-section-question-point [form]="questionForm"
+                  [sectionUniqueCode]="sectionUniqueCode" [questionIndex]="index">
+                </vt-section-question-point>
+              </ng-container>
+              <ng-container *ngSwitchCase="QUESTION_TYPE.FEEDBACK">
+                <vt-section-question-feedback [form]="questionForm"
+                  [sectionUniqueCode]="sectionUniqueCode" [questionIndex]="index">
+                </vt-section-question-feedback>
+              </ng-container>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <nz-form-item>
+              <nz-form-control nzSpan="24">
+                <label nz-checkbox formControlName="required">{{ 'survey_management.require' | translate }}</label>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

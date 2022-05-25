@@ -1,0 +1,61 @@
+@import "./../app/shared/styles/variable.scss";
+
+.main-layout {
+  min-height: 100%;
+}
+
+.vt-header {
+  display: flex;
+  padding: 0 20px;
+  justify-content: space-between;
+
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    transition: color 0.3s;
+  }
+}
+nz-header {
+  background-color: $cl-light-primary;
+}
+.cl-white {
+  color: $cl-red-secondary;
+}
+// Header: 64px, footer: 70px
+nz-content {
+  // min-height: calc(100vh - 134px);
+  padding: 16px;
+  // background-color: $cl-light-secondary;
+  background-color: $cl-col-odd;
+}
+
+// .inner-content {
+//   padding: 16px;
+//   height: 100%;
+//   min-height: 360px;
+// }
+
+// Logo on the sidebar
+.logo {
+  border-bottom: 1px solid $cl-light-secondary;
+  padding-bottom: 11px;
+  margin: 0;
+  text-align: center;
+  img {
+    width: 80px;
+  }
+}
+.menu {
+  position: sticky;
+  top: 10px;
+}
+.mock-logo {
+  color: $cl-light-primary;
+  font-size: 34px;
+}
+
+.vt-footer {
+  color: #000;
+  text-align: center;
+  background-color: $cl-light-primary;
+}

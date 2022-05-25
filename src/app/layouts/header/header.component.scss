@@ -1,0 +1,48 @@
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user-dropdown-menu {
+  .user-avatar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  li {
+    padding: 5px 10px;
+  }
+  li:not(.user-info) {
+    padding-left: 22px;
+  }
+}
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+}
+.sub-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.flag {
+  width: 20px;
+  margin-right: 5px;
+}
+.current-flag {
+  margin-bottom: 2px;
+}
+.user-option {
+  display: flex;
+  align-items: center;
+  i {
+    margin-right: 10px;
+  }
+}
+.cl-white {
+  color: #000;
+}

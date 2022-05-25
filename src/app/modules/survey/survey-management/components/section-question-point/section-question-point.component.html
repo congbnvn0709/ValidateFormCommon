@@ -1,0 +1,104 @@
+<div [formGroup]="form">
+  <div class="fix-height-of-content" formArrayName="listSubQuestion">
+    <ng-container *ngFor="let f of form.controls['listSubQuestion'].controls; index as index">
+      <div class="fix-height-of-content" [formGroupName]="index">
+        <div nz-row [nzGutter]="24" class="answer-point">
+          <div nz-col nzSm="24" nzLg="12">
+            <div class="config-answer">
+              <div class="dummy-action cl-blue">
+                <i nz-icon nzType="rise" nzTheme="outline"></i>
+              </div>
+              <div class="answer-content">
+                <div class="wrap-blockchain justify-content-start">
+                  <div class="refer-text">
+                    <span>{{ 'survey_management.from' | translate }}</span>
+                  </div>
+                  <div class="select-refer">
+                    <nz-form-item class="required-control">
+                      <nz-form-control nzSpan="24">
+                        <input nz-input placeholder="{{ 'survey_management.from' | translate }}"
+                          formControlName="fromPoint" id="fromPoint" maxlength="20" trim="blur"
+                          [vtPreventTyping]="PATTERNS.PATTERN_005" (ngModelChange)="onFromPointChange($event, index)" />
+                        <vt-show-errors class="not-fix-height" [control]="form.controls['listSubQuestion'].controls[index].controls.fromPoint"
+                          [controlName]="'survey_management.from' | translate "
+                          [remnantControlName]="'survey_management.to' | translate">
+                        </vt-show-errors>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="refer-text">
+                    <span>{{ 'survey_management.to' | translate | lowercase }}</span>
+                  </div>
+                  <div class="select-refer">
+                    <nz-form-item class="required-control">
+                      <nz-form-control nzSpan="24">
+                        <input nz-input placeholder="{{ 'survey_management.to' | translate }}" formControlName="toPoint"
+                          id="toPoint" maxlength="20" trim="blur" [vtPreventTyping]="PATTERNS.PATTERN_005"
+                          (ngModelChange)="onToPointChange($event, index)" />
+                        <vt-show-errors class="not-fix-height" [control]="form.controls['listSubQuestion'].controls[index].controls.toPoint"
+                          [controlName]="'survey_management.to' | translate "
+                          [remnantControlName]="'survey_management.from' | translate">
+                        </vt-show-errors>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+                <nz-form-item>
+                  <nz-form-control nzSpan="24">
+                    <input nz-input placeholder="{{ 'survey_management.desctiption_for_pointer' | translate }}"
+                      formControlName="description" id="description" trim="blur" maxlength="255" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSm="24" nzLg="12">
+            <div class="wrap-blockchain justify-content-end">
+              <div class="refer-text">
+                <span>{{ 'survey_management.continue_section_2' | translate }}</span>
+              </div>
+              <div class="select-refer">
+                <nz-form-item>
+                  <nz-form-control nzSpan="24">
+                    <nz-select id="nextSectionOrder" nzShowSearch nzAllowClear formControlName="nextSectionOrder"
+                      nzPlaceHolder="{{ 'common.select' | translate }}"
+                      (ngModelChange)="onSectionChange($event, index)">
+                      <ng-container *ngFor="let item of sectionData">
+                        <nz-option [nzValue]="item.value"
+                          [nzLabel]="('survey_management.section' | translate) + ' ' + item.index"></nz-option>
+                      </ng-container>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="refer-text">
+                <span>{{ 'survey_management.continue_question' | translate | lowercase}}</span>
+              </div>
+              <div class="select-refer">
+                <nz-form-item>
+                  <nz-form-control nzSpan="24">
+                    <nz-select id="nextQuestionOrder" nzShowSearch nzAllowClear formControlName="nextQuestionOrder"
+                      nzPlaceHolder="{{ 'common.select' | translate }}">
+                      <ng-container *ngFor="let item of questionList[index]">
+                        <nz-option [nzValue]="item.value"
+                          [nzLabel]="('survey_management.continue_question' | translate) + ' ' + item.index">
+                        </nz-option>
+                      </ng-container>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div>
+                <span class="pointer" (click)="onRemove(index)" nz-tooltip
+                  nzTooltipTitle="{{ 'survey_management.delete_answer' | translate }}">
+                  <i nz-icon nzType="minus-circle" nzTheme="outline"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <span class="cl-blue pointer" (click)="onAddAnswer()">Thêm tùy chọn</span>
+  </div>
+</div>

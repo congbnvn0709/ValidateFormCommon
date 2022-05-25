@@ -1,0 +1,72 @@
+<form nz-form [formGroup]="form" class="vt-form">
+  <div nz-row [nzGutter]="24">
+    <ng-container *ngFor="let control of formInfo">
+      <ng-container [ngSwitch]="control.type">
+        <ng-container *ngSwitchCase="'input'">
+          <div nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label nzSpan="24" nzFor="code" [nzRequired]="control.required">{{control.label}}</nz-form-label>
+              <nz-form-control nzSpan="24">
+                <input nz-input placeholder="{{control.placeholder}}" formControlName="{{control.controlName}}"
+                  id="code" />
+                  <vt-show-errors [control]="form.controls[control.controlName]" [controlName]="control.label ">
+                  </vt-show-errors>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'select'">
+          <div nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label nzSpan="24" nzFor="status">{{control.label}}</nz-form-label>
+              <nz-form-control nzSpan="24">
+                <ng-container *ngIf="control.asyncOptions; else elseSelect">
+                  <nz-select id="status" nzShowSearch nzAllowClear formControlName="{{control.controlName}}"
+                    nzPlaceHolder="{{control.placeholder}}">
+                    <ng-container *ngFor="let item of control.asyncOptions.path | async">
+                      <nz-option [nzValue]="item[control.asyncOptions.value]" [nzLabel]="item[control.asyncOptions.label]"></nz-option>
+                    </ng-container>
+                  </nz-select>
+                </ng-container>
+                <ng-template #elseSelect>
+                  <nz-select id="status" nzShowSearch nzAllowClear formControlName="{{control.controlName}}"
+                    nzPlaceHolder="{{control.placeholder}}">
+                    <ng-container *ngFor="let item of control.options">
+                      <nz-option [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+                    </ng-container>
+                  </nz-select>
+                </ng-template>
+                <vt-show-errors [control]="form.controls[control.controlName]" [controlName]="control.label ">
+                </vt-show-errors>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'date'">
+          <div nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label nzSpan="24" nzFor="status">{{control.label}}</nz-form-label>
+              <nz-form-control nzSpan="24">
+                <nz-date-picker class="w-100" formControlName="{{control.controlName}}"></nz-date-picker>
+                <vt-show-errors [control]="form.controls[control.controlName]" [controlName]="control.label ">
+                </vt-show-errors>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="24" class="button-list justify-content-end">
+      <button nz-button [nzType]="'primary'">
+        <i nz-icon nzType="search" nzTheme="outline"></i>
+        {{ 'common.search' | translate }}
+      </button>
+      <button nz-button type="reset">
+        <i nz-icon nzType="redo" nzTheme="outline"></i>
+        {{ 'common.clear' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

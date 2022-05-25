@@ -1,0 +1,56 @@
+@import '../../../../shared/styles/variable.scss';
+
+.config-answer {
+  display: flex;
+  justify-content: flex-start;
+
+  .answer-content {
+    width: 100%;
+    margin-left: 20px;
+  }
+}
+
+.block-header {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid $cl-gray-primary;
+
+  .sort {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  .header-remove-btn {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.wrap-blockchain {
+  display: flex;
+  justify-content: flex-end;
+
+  .refer-text {
+    margin-top: 5px;
+  }
+
+  .select-refer {
+    width: 100px;
+  }
+}
+.wrap-blockchain > div {
+  margin-right: 10px;
+
+  :last-child {
+    margin-right: 0;
+  }
+}
+
+.no-data-survey {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,48 @@
+<div *ngIf="control && control.invalid && (control.dirty || control.touched)">
+  <div [ngSwitch]="getFirstKeyError">
+    <ng-container *ngSwitchCase="'required'">
+      <span class="text-danger">
+        {{'message.required' | translate:{field: controlName} }}
+      </span>
+    </ng-container>
+    <ng-container *ngSwitchCase="'pattern'">
+      <span class="text-danger">
+        {{'message.pattern' | translate:{field: controlName} }}
+      </span>
+    </ng-container>
+    <ng-container *ngSwitchCase="'maxLength'">
+      <span class="text-danger">
+        max length...
+      </span>
+    </ng-container>
+    <ng-container *ngSwitchCase="'minlength'">
+      <span class="text-danger">
+        min length...
+      </span>
+    </ng-container>
+    <ng-container *ngSwitchCase="'max'">
+      <span class="text-danger">
+        <!-- {{controlName}} không được phép nhỏ hơn {{remnantControlName}} -->
+        {{ 'message.min' | translate: {field: controlName, value: value} }}
+      </span>
+    </ng-container>
+    <ng-container *ngSwitchCase="'min'">
+      <span class="text-danger">
+        <!-- {{controlName}} không được phép lớn hơn {{remnantControlName}} -->
+        {{ 'message.max' | translate: {field: controlName, value: value} }}
+      </span>
+    </ng-container>
+    <ng-container *ngSwitchCase="'maxTwo'">
+      <span class="text-danger">
+        <!-- {{controlName}} không được phép nhỏ hơn {{remnantControlName}} -->
+        {{ 'message.min' | translate: {field: controlName, value: remnantControlName} }}
+      </span>
+    </ng-container>
+    <ng-container *ngSwitchCase="'minTwo'">
+      <span class="text-danger">
+        <!-- {{controlName}} không được phép lớn hơn {{remnantControlName}} -->
+        {{ 'message.max' | translate: {field: controlName, value: remnantControlName} }}
+      </span>
+    </ng-container>
+  </div>
+</div>

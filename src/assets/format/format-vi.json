@@ -1,0 +1,6 @@
+{
+  "shortDate": "dd/MM/yyyy",
+  "date": "dd/MM/yyyy",
+  "shortDateTime": "dd/MM/yyyy hh:mm",
+  "dateTime": "dd/MM/yyyy hh:mm:ss"
+}

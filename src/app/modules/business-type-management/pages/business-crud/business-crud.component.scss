@@ -1,0 +1,48 @@
+.list_attribute{
+    ::ng-deep .ant-collapse{
+        border-radius: 11px;
+        .ant-collapse-item, .ant-collapse-content{
+            border-radius: 0 0 11px 11px;
+        }
+        .ant-collapse-header{
+            background-color: #008ED0;
+            border-radius: 11px 11px 0 0 ;
+        }
+    }
+}
+.addAttribute{
+    color: #fff;
+    border-color: #1890ff;
+    background: #1890ff;
+    transition: all .3s linear;
+}
+.addAttribute:hover{
+    color: #fff;
+    border-color: #40a9ff;
+    background: #40a9ff;
+    transition: all .3s linear;
+}
+.deleteAttribute{
+    color: #fff;
+    border-color: rgb(247, 25, 25);
+    background: rgb(247, 25, 25);
+    transition: all .3s linear;
+}
+.deleteAttribute:hover{
+    color: #fff;
+    border-color: rgb(255, 28, 28);
+    background: rgb(255, 28, 28);
+    transition: all .3s linear;
+}
+::ng-deep .ant-select-single, ::ng-deep .ant-select-selector, ::ng-deep .ant-select-selection-item{
+    color: #333;
+}
+.cl_F5F5F5{
+    background-color: #F5F5F5;
+}
+::ng-deep .ant-select-selection-item, ::ng-deep .ant-radio-wrapper span, ::ng-deep.ant-input-number-disabled {
+    color: #333;
+}
+::ng-deep .ant-pagination-options-quick-jumper{
+    display: none;
+}

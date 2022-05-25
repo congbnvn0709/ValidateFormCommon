@@ -1,0 +1,96 @@
+<div class="wrap-section" [formGroup]="form">
+  <ng-container *ngIf="form.controls['listSection']?.controls?.length > 0; else elseNotHaveSection">
+    <div formArrayName="listSection">
+      <ng-container *ngFor="let sectionForm of form.controls['listSection'].controls; index as index; last as isLast">
+        <div class="vt-block section border" [ngClass]="{'active': index === currentSectionIndex}"
+          [formGroupName]="index" (click)="onSectionClick(index)">
+          <div class="vt-block-title section-title">
+            <div class="section-order">
+              <b>{{ 'survey_management.section' | translate }} {{index + 1}}/{{sectionsForm.controls.length}}</b>
+            </div>
+          </div>
+          <div class="section-header block-header">
+            <div class="pointer sort cl-blue d-flex" (click)="onSortSection()">
+              <span>{{ 'survey_management.section_order' | translate }}</span>
+              <span class="pl-10 d-flex align-items-center">
+                <i nz-icon nzType="sort-descending" nzTheme="outline"></i>
+              </span>
+            </div>
+            <span class="pointer header-remove-btn" *ngIf="form.controls['listSection'].controls.length > 1"
+              (click)="onRemoveSection(index)" nz-tooltip
+              nzTooltipTitle="{{ 'survey_management.section_delete' | translate }}">
+              <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+            </span>
+          </div>
+          <vt-section-title [form]="sectionForm"></vt-section-title>
+          <div class="mt-20 mb-10">
+            <span class="fs-16">
+              {{ 'survey_management.question_list' | translate }}
+            </span>
+          </div>
+          <ng-container
+            *ngIf="sectionForm.controls.listQuestion.length === 0; else elseNotQuestion">
+            <div class="no-data no-data-survey">
+              <div>
+                <span>Chưa cấu hình câu hỏi</span>
+                <br>
+                <span class="d-flex justify-content-center align-items-center">
+                  <span>Bấm vào</span>
+                  <span class="d-flex pl-10 pr-10"><i nz-icon nzType="plus-circle" nzTheme="outline"></i></span>
+                  <span>để thêm câu hỏi</span>
+                </span>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #elseNotQuestion>
+            <vt-section-question [form]="sectionForm" [sectionIndex]="index">
+            </vt-section-question>
+          </ng-template>
+          <div class="section-refer mt-20">
+            <div nz-row [nzGutter]="24">
+              <div nz-col nzSm="4" nzLg="3">
+                <span>{{ 'survey_management.after_section' | translate }}</span>
+              </div>
+              <div nz-col nzSm="24" nzLg="21">
+                <nz-form-item>
+                  <nz-form-label nzSpan="4" nzFor="nextSectionOrder">
+                    <span>{{ 'survey_management.next_section' | translate }}</span>
+                  </nz-form-label>
+                  <nz-form-control nzSpan="4">
+                    <nz-select id="nextSectionOrder" nzShowSearch nzAllowClear formControlName="nextSectionOrder"
+                      nzPlaceHolder="{{ 'common.select' | translate }}">
+                      <!-- <nz-option [nzValue]="0" [nzLabel]="'survey_management.continue_section' | translate"></nz-option> -->
+                      <ng-container *ngFor="let item of sectionData; first as isFirstSection, last as isLastSection">
+                        <nz-option [nzValue]="item.value"
+                          [nzLabel]="('survey_management.section' | translate) + ' ' + item.index"></nz-option>
+                      </ng-container>
+                      <!-- <nz-option [nzValue]="'stop'" [nzLabel]="'Kết thúc kịch bản'"></nz-option> -->
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <ng-container *ngIf="!isLast">
+        <span class="pointer" (click)="onChenSection()">Chèn thêm phần</span>
+      </ng-container> -->
+
+      </ng-container>
+    </div>
+  </ng-container>
+  <ng-template #elseNotHaveSection>
+    <div class="no-data no-data-survey">
+      <div>
+        <span>Chưa cấu hình phần cho kịch bản</span>
+        <br>
+        <span class="d-flex justify-content-center align-items-center">
+          <span>Bấm vào</span>
+          <span class="d-flex pl-10 pr-10"><i nz-icon nzType="pic-center" nzTheme="outline"></i></span>
+          <span>để thêm phần cho kịch bản</span>
+        </span>
+      </div>
+    </div>
+  </ng-template>
+
+</div>

@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+.login-page {
+  margin: 0 auto;
+  width: 400px;
+  // height: 100vh;
+  height: calc(100vh - 100px);
+}
+
+.login-logo {
+  text-align: center;
+  margin: 50px 0 25px 0;
+  img {
+    width: 200px;
+  }
+}
+.login-form {
+  input {
+    width: 100%;
+  }
+}
+
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+.wrap-errors {
+  margin-top: 10px;
+  span {
+    display: block;
+  }
+}
+
+.wrap-spin {
+  text-align: center;
+  margin-top: 25px;
+}

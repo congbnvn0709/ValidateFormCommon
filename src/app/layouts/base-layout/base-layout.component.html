@@ -1,0 +1,14 @@
+<div class="page vt-page fix-height-of-page">
+  <div class="page-header">
+    {{routerData.title | translate}}
+  </div>
+  <div class="page-content">
+    <!-- <ng-container *ngIf="isLoading; else elseNotLoading">
+      <nz-spin nzSimple></nz-spin>
+    </ng-container>
+    <ng-template #elseNotLoading>
+      <ng-content></ng-content>
+    </ng-template> -->
+    <ng-content></ng-content>
+  </div>
+</div>

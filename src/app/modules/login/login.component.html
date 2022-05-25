@@ -1,0 +1,51 @@
+<div class="login-page">
+  <div class="login-logo">
+    <img src="./../../../assets/images/logo.png" alt="Logo viettel">
+  </div>
+  <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitForm()">
+    <nz-form-item class="required-control">
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="userName" placeholder="{{ 'common.username' | translate }}" />
+        </nz-input-group>
+        <vt-show-errors [control]="form.controls['userName']" [controlName]="'common.username' | translate ">
+        </vt-show-errors>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="required-control">
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password"
+            placeholder="{{ 'common.password' | translate }}" />
+        </nz-input-group>
+        <vt-show-errors [control]="form.controls['password']" [controlName]="'common.password' | translate ">
+        </vt-show-errors>
+      </nz-form-control>
+    </nz-form-item>
+    <div class="login-form-margin">
+      <label nz-checkbox formControlName="remember">
+        <span>{{ 'common.remember' | translate }}</span>
+      </label>
+    </div>
+    <button nz-button class="login-form-button login-form-margin" [disabled]="isLoading" [nzType]="'primary'">
+      {{ 'common.login' | translate }}
+    </button>
+    <div>
+      <span>{{ 'common.good_time' | translate }}</span>
+    </div>
+    <div class="wrap-errors text-danger" *ngIf="isHadError">
+      <span class="fs-16">
+        {{ 'message.login_fail' | translate }}
+      </span>
+      <span>
+        {{ 'message.invalid_account' | translate }}
+      </span>
+      <span>
+        {{ 'message.require_check' | translate }}
+      </span>
+    </div>
+  </form>
+  <div class="wrap-spin" *ngIf="isLoading">
+    <nz-spin nzSimple></nz-spin>
+  </div>
+</div>

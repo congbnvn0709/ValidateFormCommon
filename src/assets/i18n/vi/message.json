@@ -1,0 +1,30 @@
+{
+  "message": {
+    "comment_001": "**************** Validation message ****************",
+    "required": "{{field}} không được bỏ trống",
+    "wrong_format": "{{field}} không đúng định dạng",
+    "min_length": "{{field}} không được phép ít hơn {{value}} ký tự",
+    "max_length": "{{field}} không được phép nhiều hơn {{value}} ký tự",
+    "max": "{{field}} không được phép nhỏ hơn {{value}}",
+    "min": "{{field}} không được phép lớn hơn {{value}}",
+    "max_size": "Dung lượng file không được lớn hơn {{value}}Mb",
+    "duplicate": "{{objectName}} đã tồn tại",
+    "enter_number_only": "{{field}} chỉ được phép nhập số",
+    "range": "Giá trị của {{field}} phải nằm trong khoảng từ {{minValue}} đến {{maxValue}}",
+    "pattern": "Giá trị không đúng định dạng",
+
+    "comment_002": "**************** Login message ****************",
+    "login_fail": "Đăng nhập thất bại",
+    "invalid_account": "Tên đăng nhập hoặc mật khẩu không đúng",
+    "require_check": "Vui lòng kiểm tra lại hoặc liên hệ với quản trị viên để biết thêm thông tin!",
+
+    "comment_003": "**************** Other ****************",
+    "confirm": "Bạn có muốn thực hiện hành động này?",
+    "save_success": "Lưu thành công",
+    "save_fail": "Lưu thất bại",
+    "page_notfound": "Không tìm thấy trang",
+    "go_homepage": "Trang chủ",
+    "have_error": "Có lỗi xảy ra",
+    "comfirm_cancel": "Bạn có chắc chắn muốn hủy không?"
+  }
+}

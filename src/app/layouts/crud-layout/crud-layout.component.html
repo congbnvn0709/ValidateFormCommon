@@ -1,0 +1,101 @@
+<vt-base-layout>
+  <ng-container *ngIf="self && self.form">
+    <form
+      class="vt-form {{ classes }}"
+      nz-form
+      [formGroup]="self.form"
+      (ngSubmit)="self.onSubmit()"
+      vtAutofocusInvalidField
+    >
+      <div class="inner-form">
+        <ng-content></ng-content>
+        <div class="button-list justify-content-end">
+          <ng-container *ngIf="self.configCancelButton.isDisplay">
+            <button
+              class="vt-btn"
+              nz-button
+              type="button"
+              (click)="self?.onCancel()"
+              *ngIf="
+                !(routerData?.mode === self?.modes?.VIEW || self?.isLoading)
+              "
+            >
+              {{ self.configCancelButton.label }}
+            </button>
+          </ng-container>
+          <!-- <button nz-button [nzType]="'primary'" type="submit" [disabled]="routerData?.mode === self?.modes?.VIEW || self?.isLoading">
+          <i nz-icon [nzType]="self?.isLoading ? 'loading' : 'save'" nzTheme="outline"></i>
+          {{ 'common.create_new' | translate }}
+        </button> -->
+          <button
+            nz-button
+            [nzType]="'primary'"
+            class="back-ground-btn"
+            type="submit"
+            *ngIf="routerData?.mode === self?.modes?.CREATE"
+            [disabled]="self?.isLoading"
+          >
+            <i
+              nz-icon
+              [nzType]="self?.isLoading ? 'loading' : 'save'"
+              nzTheme="outline"
+            ></i>
+            {{ "common.create_new" | translate }}
+          </button>
+          <button
+            nz-button
+            [nzType]="'primary'"
+            class="back-ground-btn"
+            type="submit"
+            *ngIf="routerData?.mode === self?.modes?.EDIT"
+            [disabled]="self?.isLoading"
+          >
+            <i
+              nz-icon
+              [nzType]="self?.isLoading ? 'loading' : 'save'"
+              nzTheme="outline"
+            ></i>
+            {{ "common.update" | translate }}
+          </button>
+          <button
+            nz-button
+            [nzType]="'default'"
+            type="submit"
+            *ngIf="routerData?.mode === self?.modes?.VIEW"
+          >
+            <i nz-icon [nzType]="'close-circle'" nzTheme="outline"></i>
+            {{ "common.close" | translate }}
+          </button>
+          <button
+            nz-button
+            [nzType]="'primary'"
+            class="back-ground-btn"
+            type="button"
+            *ngIf="
+              routerData?.mode === self?.modes?.PREVIEW &&
+              self.state === STATE.UNCOMPLETE
+            "
+            (click)="self?.onContinue()"
+          >
+            <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+            {{ "common.continue" | translate }}
+          </button>
+          <button
+            nz-button
+            [nzType]="'primary'"
+            class="back-ground-btn"
+            type="button"
+            *ngIf="
+              routerData?.mode === self?.modes?.PREVIEW &&
+              self.state === STATE.COMPLETE
+            "
+            (click)="self?.onComplete()"
+          >
+            <i nz-icon nzType="check" nzTheme="outline"></i>
+            {{ "common.complete" | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</vt-base-layout>

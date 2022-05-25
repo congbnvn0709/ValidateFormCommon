@@ -1,0 +1,68 @@
+<vt-manage-layout [self]="self">
+  <div search-form>
+      <div nz-form [formGroup]="form">
+            <div nz-row [nzGutter]="24">
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="business_type_id">{{'business.id_business_type' | translate}}</nz-form-label>
+                        <nz-form-control nzSpan="24">
+                            <input type="number" nz-input #input trim="blur" formControlName="id_business_type" placeholder="{{'business.id_business_type'| translate}}"
+                             id="business_type_id" oninput="if (this.value.length > 11) this.value = this.value.slice(0, 11);" (keypress)="numberOnly($event)">
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="business_code">{{'business.business_code' | translate}}</nz-form-label>
+                        <nz-form-control nzSpan="24">
+                            <input nz-input trim="blur" onkeyup="this.value=this.value.toUpperCase()" placeholder="{{'business.business_code'| translate}}" formControlName="business_code" id="business_code" maxlength="11"/>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="name">{{'business.business_name' | translate}}</nz-form-label>
+                        <nz-form-control nzSpan="24">
+                            <input nz-input trim="blur" placeholder="{{'business.business_name'| translate}}" formControlName="business_name" id="name" maxlength="255"/>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="business_type">{{'business.business_type' | translate}}</nz-form-label>
+                        <nz-form-control nzSpan="24">
+                            <input nz-input trim="blur" placeholder="{{'business.business_type'| translate}}" formControlName="business_type" id="business_type" maxlength="255"/>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="frequency">{{'business.business_frequency' | translate}}</nz-form-label>
+                        <nz-form-control nzSpan="24">
+                            <input type="number" nz-input trim="blur" formControlName="business_frequency" placeholder="{{'business.business_frequency'| translate}}" id="frequency" 
+                                oninput="if (this.value.length > 11) this.value = this.value.slice(0, 11);" (keypress)="numberOnly($event)">
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="24" nzFor="list_scenario">{{'common.scenario' | translate}}</nz-form-label>
+                        <nz-form-control nzSpan="24">
+                            <nz-select nzShowSearch nzAllowClear formControlName="business_list_scenario" nzPlaceHolder="{{ 'common.select' | translate }}" >
+                                <ng-container *ngFor="let item of listScenario">
+                                    <nz-option [nzValue]="item.surveyFormId" [nzLabel]="item.surveyFormCode + '_' + item.surveyFormName"></nz-option>
+                                </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div table>
+        <vt-primary-table [setOfCheckedId]="setOfCheckedId" [columnData]="columnData"
+            [datasource]="dataSource" [actions]="actions" [pagination]="pagination" (actionKey)="onTriggerActionKey($event)"
+            (tableQueryParamsChange)="tableQueryParamsChange($event)">
+        </vt-primary-table>
+    </div>
+</vt-manage-layout>

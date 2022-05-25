@@ -1,0 +1,29 @@
+<div [formGroup]="form">
+  <div class="fix-height-of-content">
+    <div class="fix-height-of-content">
+      <!-- Mã chứng từ -->
+      <div nz-row [nzGutter]="24">
+        <!-- Tên chứng từ -->
+        <div nz-col nzSm="24" nzLg="12">
+          <nz-form-item>
+            <nz-form-label nzSpan="24" nzFor="sectionName">{{ 'survey_management.section_title' | translate }}
+            </nz-form-label>
+            <nz-form-control nzSpan="24">
+              <input nz-input placeholder="{{ 'survey_management.section_title' | translate }}"
+                formControlName="sectionName" id="sectionName" maxlength="200" trim="blur" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSm="24" nzLg="12">
+          <nz-form-item>
+            <nz-form-label nzSpan="24" nzFor="description">{{ 'common.description' | translate }}</nz-form-label>
+            <nz-form-control nzSpan="24">
+              <textarea nz-input name="description" id="description" rows="1" formControlName="description"
+                placeholder="{{ 'common.description' | translate }}" maxlength="500" trim="blur"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,304 @@
+@import "./variable.scss";
+
+body {
+  background: #f0f2f5;
+}
+.cl-white {
+  color: $cl-light-primary;
+}
+.cl-blue {
+  color: $cl-blue-tertiary;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.large-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.pointer {
+  cursor: pointer;
+}
+.back-ground-btn {
+  background: #485ec4;
+  border: none;
+}
+.link {
+  color: #8d5fff !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.text-nowrap {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.dummy-link {
+  display: inline-block;
+  color: #5e5ec7;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.box-shadow {
+  box-shadow: 0px 0px 8px #d5d5d5;
+}
+
+.required {
+  color: $cl-danger;
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 14px;
+  font-family: SimSun, sans-serif;
+  line-height: 1;
+}
+
+// Not margin
+.secondary-required {
+  color: $cl-danger;
+  display: inline-block;
+  font-size: 14px;
+  font-family: SimSun, sans-serif;
+  line-height: 1;
+}
+
+.no-data {
+  padding: 25px;
+  text-align: center;
+  background-color: #efffff;
+  border: 1px dotted $cl-gray-primary;
+  color: #afafaf;
+}
+
+.primary-block {
+  padding: 16px;
+  border-radius: 6px;
+  background-color: $cl-light-primary;
+  border: 1px solid $cl-light-secondary;
+}
+
+.tip-info {
+  color: $cl-blue-secondary;
+  margin-left: 10px;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.ant-breadcrumb {
+  span {
+    font-size: 12px;
+  }
+  a {
+    color: $cl-blue-secondary;
+
+    &:hover {
+      color: $cl-blue-secondary;
+    }
+  }
+}
+.vt-pagination {
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    button {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+.vt-btn {
+  min-width: 70px;
+}
+.btn-remove {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  // background-color: #333;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: $cl-blue-tertiary;
+    box-shadow: 0px 0px 6px $cl-blue-tertiary;
+  }
+}
+.vt-checkbox {
+  cursor: default !important;
+  input {
+    cursor: default !important;
+  }
+}
+.wrap-actions {
+  display: flex;
+  justify-content: center;
+
+  span {
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.85);
+
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.page-header {
+  margin-bottom: 10px;
+  @extend .large-title;
+}
+
+// Page management/searching
+.vt-form {
+  @extend .primary-block;
+
+  .ant-form-item-label {
+    padding: 0;
+  }
+}
+.fix-height-of-page {
+  height: calc(100% - 38px);
+}
+.fix-height-of-content {
+  height: calc(100% - 32px);
+}
+
+.search-result {
+  @extend .primary-block;
+
+  margin-top: 10px;
+  min-height: 200px;
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.button-list {
+  display: flex;
+
+  button {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    justify-content: center;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+// Table
+.vt-table {
+  th {
+    background-color: $cl-thead-table !important;
+    // background-color: $cl-blue-primary !important;
+    padding: 14px 8px !important;
+
+    .ant-table-column-sorter {
+      color: rgba($color: $cl-logo-gray, $alpha: 0.6);
+    }
+
+    &:hover {
+      background-color: rgba($color: $cl-logo-gray, $alpha: 0.4);
+
+      .ant-table-column-sorter {
+        color: rgba($color: $cl-logo-gray, $alpha: 1);
+      }
+    }
+  }
+  .vt-column {
+    max-width: 350px;
+  }
+  .ant-table-tbody > tr.ant-table-row:hover > td {
+    background-color: rgba($color: $cl-blue-secondary, $alpha: 0.1) !important;
+  }
+
+  tr:nth-child(2n + 1) {
+    // background-color: rgba($color: $cl-logo-gray, $alpha: 0.15);
+    background-color: $cl-col-odd;
+  }
+}
+
+// END - Page management/searching
+
+// Block
+.vt-block {
+  padding: 25px;
+  border-radius: 7px;
+  position: relative;
+  padding-top: 25px;
+
+  .vt-block-title {
+    top: -28px;
+    left: 21px;
+    color: #fff;
+    position: absolute;
+
+    $widthValue: 22px;
+    $heightalue: 27px;
+
+    @mixin mock {
+      content: "";
+      width: $widthValue;
+      height: $heightalue;
+      top: 0;
+      display: inline-block;
+      position: absolute;
+    }
+
+    &:after {
+      right: -$widthValue;
+      border-radius: 0 80% 0 0;
+      @include mock();
+    }
+    &:before {
+      left: -$widthValue;
+      border-radius: 80% 0 0 0;
+      @include mock();
+    }
+  }
+}
+
+// END - Block
+
+// Refactor Ant design style
+.ant-form-item {
+  margin: 0 0 22px 0;
+
+  .ant-form-item-label > label {
+    height: 28px;
+  }
+}
+.ant-form-item.required-control {
+  margin: 0;
+
+  vt-show-errors {
+    display: block;
+    height: 22px;
+  }
+
+  vt-show-errors.not-fix-height {
+    display: block;
+    height: auto;
+    min-height: 22px;
+  }
+}
+// END - Refactor Ant design style
+
+.rate .ant-rate {
+  max-width: 306px;
+}

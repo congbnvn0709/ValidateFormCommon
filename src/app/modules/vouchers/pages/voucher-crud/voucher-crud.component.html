@@ -1,0 +1,103 @@
+<vt-crud-layout [self]="self">
+  <div [formGroup]="self.form">
+    <div class="fix-height-of-content">
+      <div class="fix-height-of-content">
+        <!-- Mã chứng từ -->
+        <div nz-row [nzGutter]="24">
+          <div nz-col nzSm="24" nzLg="12">
+            <nz-form-item>
+              <nz-form-label nzSpan="24" nzFor="code" nzRequired>
+                <span>Mã chứng từ</span>
+                <span class="tip-info" nz-popover nzType="primary"
+                  nzPopoverContent="Chỉ được phép nhập chữ, số và dấu gạch dưới">
+                  <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+                </span>
+              </nz-form-label>
+              <nz-form-control nzSpan="24">
+                <input nz-input placeHolder="Mã chứng từ" formControlName="code" id="code" />
+                <vt-show-errors [control]="form.controls['code']" [controlName]="'common.username' | translate ">
+                </vt-show-errors>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!-- Tên chứng từ -->
+          <div nz-col nzSm="24" nzLg="12">
+            <nz-form-item>
+              <nz-form-label nzSpan="24" nzFor="name" nzRequired>Tên chứng từ</nz-form-label>
+              <nz-form-control nzSpan="24">
+                <input nz-input placeHolder="Tên chứng từ" formControlName="name" id="name" />
+                <vt-show-errors [control]="form.controls['name']" [controlName]="'common.username' | translate ">
+                </vt-show-errors>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!-- Trạng thái -->
+          <div nz-col nzSm="24" nzLg="12">
+            <nz-form-item>
+              <nz-form-label nzSpan="24" nzFor="status" nzRequired>Trạng thái</nz-form-label>
+              <nz-form-control nzSpan="24">
+                <nz-select id="status" nzShowSearch nzAllowClear formControlName="status" nzPlaceHolder="Lựa chọn">
+                  <ng-container *ngFor="let item of ACTIVE_STATUS_OPTION">
+                    <nz-option [nzValue]="item.value" [nzLabel]="item.label | translate"></nz-option>
+                  </ng-container>
+                </nz-select>
+                <vt-show-errors [control]="form.controls['status']" [controlName]="'common.username' | translate ">
+                </vt-show-errors>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!-- Ghi chú -->
+          <div nz-col nzSm="24" nzLg="12">
+            <nz-form-item>
+              <nz-form-label nzSpan="24" nzFor="note">Ghi chú</nz-form-label>
+              <nz-form-control nzSpan="24">
+                <textarea nz-input name="note" id="note" cols="3" formControlName="note"
+                  placeholder="Ghi chú"></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!-- Chứng từ có dùng lại -->
+          <div nz-col [nzSpan]="24">
+            <nz-form-item class="mb-0">
+              <nz-form-control nzSpan="24">
+                <label nz-checkbox formControlName="reuse">Chứng từ có dùng lại</label>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!-- Yêu cầu scan -->
+          <div nz-col [nzSpan]="24">
+            <nz-form-item class="mb-0">
+              <nz-form-control nzSpan="24">
+                <label nz-checkbox formControlName="requiredScan">Yêu cầu scan</label>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!-- Chứng từ bổ sung -->
+          <div nz-col [nzSpan]="24">
+            <nz-form-item class="mb-0">
+              <nz-form-control nzSpan="24">
+                <label nz-checkbox formControlName="additionalVoucher">Chứng từ bổ sung</label>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!-- Chữ ký số -->
+          <div nz-col [nzSpan]="24">
+            <nz-form-item class="mb-0">
+              <nz-form-control nzSpan="24">
+                <label nz-checkbox formControlName="sign">Chữ ký số</label>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!-- Yêu cầu tiếp nhận -->
+          <div nz-col [nzSpan]="24">
+            <nz-form-item class="mb-0">
+              <nz-form-control nzSpan="24">
+                <label nz-checkbox formControlName="reuse">Yêu cầu tiếp nhận</label>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</vt-crud-layout>

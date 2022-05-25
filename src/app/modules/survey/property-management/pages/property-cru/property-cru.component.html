@@ -1,0 +1,118 @@
+<vt-crud-layout [self]="self">
+    <div nz-form [formGroup]="form">
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="12">
+                <nz-form-item class="required-control">
+                    <nz-form-label nzSpan="24" nzFor="name" nzRequired class="text-start">{{'survey.survey_property_name_attribute'| translate}}</nz-form-label>
+                    <nz-form-control nzSpan="24" class="text-start">
+                        <input nz-input trim="blur" #input [readonly]="isEdit && !isAdd" maxlength="200" placeholder="{{'survey.survey_property_name_attribute'| translate}}" formControlName="name" id="name" [class.cl_F2F2F2]="isEdit && !isAdd"/>
+                        <vt-show-errors [control]="form.controls['name']"  [controlName]="'survey.survey_property_name_attribute' | translate ">
+                        </vt-show-errors>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12" *ngIf="isEdit && !isAdd">
+                <nz-form-item>
+                    <nz-form-label nzSpan="24" nzFor="idProperty" class="text-start">{{'survey.survey_property_id_attribute' | translate}}</nz-form-label>
+                    <nz-form-control nzSpan="24" class="text-start">
+                        <input nz-input [readonly]="isEdit && !isAdd" [value]="dataDetail?.attId" id="idProperty" class="w-100" [class.cl_F2F2F2]="isEdit && !isAdd">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <nz-form-item class="required-control">
+                    <nz-form-label nzSpan="24" nzFor="code" nzRequired class="text-start">{{'survey.survey_property_code_attribute' | translate}}</nz-form-label>
+                    <nz-form-control nzSpan="24" class="text-start">
+                        <input nz-input trim="blur" onkeyup="this.value=this.value.toUpperCase()" [readonly]="isEdit && !isAdd" maxlength="50" placeholder="{{'survey.survey_property_code_attribute'| translate}}" formControlName="code" id="code" [class.cl_F2F2F2]="isEdit && !isAdd"/>
+                        <vt-show-errors [control]="form.controls['code']" [controlName]="'survey.survey_property_code_attribute' | translate ">
+                        </vt-show-errors>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <nz-form-item class="required-control">
+                    <nz-form-label nzSpan="24" nzFor="type" nzRequired class="text-start">{{'survey.survey_property_type_data' | translate}}</nz-form-label>
+                    <nz-form-control nzSpan="24">
+                            <nz-select id="type" [nzDisabled]="isEdit && !isAdd" nzShowSearch nzAllowClear nzDropdownClassName="hide-dropdown" formControlName="type" nzPlaceHolder="{{'survey.survey_property_type_data'| translate}}">
+                            <ng-container *ngFor="let item of typeData">
+                                <nz-option [nzValue]="item.value" [nzLabel]="item.currentValueType | translate"></nz-option>
+                            </ng-container>
+                        </nz-select>
+                        <vt-show-errors [control]="form.controls['type']" [controlName]="'survey.survey_property_type_data' | translate">
+                        </vt-show-errors>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="24">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="12">
+                        <nz-form-item class="required-control">
+                            <nz-form-label nzSpan="24" nzFor="code" nzRequired class="text-start">{{'survey.survey_property_request_input' | translate}}</nz-form-label>
+                            <nz-form-control nzSpan="24" class="text-start">
+                                <nz-radio-group formControlName="request" [nzDisabled]="isEdit && !isAdd">
+                                    <label nz-radio nzValue="1" class="width disabled_surveys">{{'survey.survey_property_Obligatory' | translate}} </label>
+                                    <label nz-radio nzValue="0">{{'survey.survey_property_Optional' | translate}}</label>
+                                </nz-radio-group>
+                                    <vt-show-errors [control]="form.controls['request']" [controlName]="'survey.survey_property_Obligatory' | translate ">
+                                    </vt-show-errors>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div nz-col [nzSpan]="12"></div>
+                    <div nz-col [nzSpan]="12" *ngIf="!isAdd">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="24" nzFor="code" class="text-start">{{'survey.survey_property_status' | translate}}</nz-form-label>
+                            <nz-form-control nzSpan="24" class="text-start">
+                                <nz-radio-group formControlName="status" [nzDisabled]="isEdit && !isAdd">
+                                    <label nz-radio nzValue="1" class="width">{{'survey.active' | translate}}</label>
+                                    <label nz-radio nzValue="0">{{'survey.inactive' | translate}}</label>
+                                </nz-radio-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div nz-col [nzSpan]="12" *ngIf="!isAdd"></div>
+                </div>
+            </div>
+            <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                    <nz-form-label nzSpan="24" nzFor="description" class="text-start">{{'survey.survey_property_description' | translate}}</nz-form-label>
+                    <nz-form-control nzSpan="24">
+                        <textarea nz-input trim="blur" [readonly]="isEdit && !isAdd" maxlength="500" name="description" id="description" rows="3" formControlName="description" placeholder="{{'survey.survey_property_description'| translate}}" [class.cl_F2F2F2]="isEdit && !isAdd"></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12" *ngIf="isEdit && !isAdd">
+                <nz-form-item>
+                    <nz-form-label nzSpan="24" nzFor="createatDate" class="text-start">{{'survey.survey_property_create_at' | translate}}</nz-form-label>
+                    <nz-form-control nzSpan="24" class="text-start">
+                        <input nz-input [readonly]="isEdit && !isAdd" [value]="dataDetail?.createDate | date : FORMAT.DATE" id="createatDate" class="w-100" [class.cl_F2F2F2]="isEdit && !isAdd">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12" *ngIf="isEdit && !isAdd">
+                <nz-form-item>
+                    <nz-form-label nzSpan="24" nzFor="creator" class="text-start">{{'survey.survey_property_creator' | translate}}</nz-form-label>
+                    <nz-form-control nzSpan="24" class="text-start">
+                        <input nz-input [readonly]="isEdit && !isAdd" [value]="dataDetail?.createdBy" id="creator" class="w-100" [class.cl_F2F2F2]="isEdit && !isAdd">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12" *ngIf="isEdit && !isAdd">
+                <nz-form-item>
+                    <nz-form-label nzSpan="24" nzFor="dateUpdate" class="text-start">{{'survey.survey_property_date_update' | translate}}</nz-form-label>
+                    <nz-form-control nzSpan="24" class="text-start">
+                        <input nz-input [readonly]="isEdit && !isAdd" [value]="dataDetail?.lastModifiedDate | date : FORMAT.DATE" id="dateUpdate" class="w-100" [class.cl_F2F2F2]="isEdit && !isAdd">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12" *ngIf="isEdit && !isAdd">
+                <nz-form-item>
+                    <nz-form-label nzSpan="24" nzFor="auditor" class="text-start">{{'survey.survey_property_editor' | translate}}</nz-form-label>
+                    <nz-form-control nzSpan="24" class="text-start">
+                        <input nz-input [value]="dataDetail?.lastModifiedBy" id="auditor" class="w-100" [class.cl_F2F2F2]="isEdit && !isAdd" [readonly]="isEdit && !isAdd">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+</vt-crud-layout>

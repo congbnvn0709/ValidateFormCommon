@@ -1,0 +1,165 @@
+<vt-crud-layout [self]="self" [classes]="'small-page'">
+  <div class="fix-height-of-content mb-20">
+    <div class="fix-height-of-content preview-content">
+      <!-- isConfigAttribute: {{sections | json}} -->
+      <!-- <vt-complete></vt-complete> -->
+      <div [ngSwitch]="currentStep" class="w-100">
+
+        <!-- Cấu hình giá trị cho tham số -->
+        <ng-container *ngSwitchCase="PREVIEW_STEP.CONFIG_ATTRIBUTE">
+          <form nz-form [formGroup]="form" class="vt-block wrap-survey-info box-shadow mt-25" autocomplete="off">
+            <div class="vt-block-title orange-title title">
+              <b>{{ 'survey_management.attribute_value' | translate }}</b>
+            </div>
+            <div formArrayName="section">
+              <ng-container *ngFor="let section of form.controls['section'].controls; index as sectionIndex">
+                <ng-container *ngIf="section.controls.isHaveAttribute.value">
+                  <div class="vt-block mt-25 section-border border" [ngClass]="{'second-up': sectionIndex > 0}">
+                    <div class="vt-block-title blue-title title">
+                      <b>{{ 'survey_management.section' | translate }} {{sectionIndex + 1}}/{{sectionLength}}</b>
+                    </div>
+                    <div [formGroupName]="sectionIndex">
+                      <div formArrayName="question">
+                        <ng-container
+                          *ngFor="let question of section.controls.question.controls; index as questionIndex">
+                          <ng-container *ngIf="question.controls.isHaveAttribute.value">
+                            <div [formGroupName]="questionIndex">
+                              <p><b>{{ 'survey_management.question_2' | translate }} {{questionIndex + 1}}:</b>
+                                {{question.controls.label.value}}</p>
+                              <div nz-row [nzGutter]="24" class="config-attribute" formArrayName="attribute">
+                                <ng-container
+                                  *ngFor="let attribute of question.controls.attribute.controls; index as attributeIndex">
+                                  <div nz-col [nzSpan]="8" [formGroupName]="attributeIndex">
+                                    <!-- value: {{attribute.controls.required.value}} -->
+                                    <nz-form-item>
+                                      <nz-form-label nzSpan="24" nzFor="attributeName{{attribute.controls.value.value}}"
+                                        [nzRequired]="attribute.controls.required.value === 1">
+                                        {{ attribute.controls.label.value }}
+                                      </nz-form-label>
+                                      <nz-form-control nzSpan="24">
+                                        <div [ngSwitch]="attribute.controls.type.value">
+                                          <ng-container *ngSwitchCase="ATTRIBUTE_TYPE.TEXT">
+                                            <input nz-input [placeholder]="'survey_management.input_text' | translate"
+                                              formControlName="content" maxlength="1000"
+                                              id="attributeName{{attribute.controls.value.value}}" trim="blur" />
+                                          </ng-container>
+                                          <ng-container *ngSwitchCase="ATTRIBUTE_TYPE.NUMBER">
+                                            <input nz-input [placeholder]="'survey_management.input_number' | translate"
+                                              formControlName="content" maxlength="15"
+                                              id="attributeName{{attribute.controls.value.value}}"
+                                              [vtPreventTyping]="PATTERNS.PATTERN_005" autofill />
+                                          </ng-container>
+                                          <ng-container *ngSwitchCase="ATTRIBUTE_TYPE.DATE_TIME">
+                                            <nz-date-picker class="w-100" formControlName="content"
+                                              [nzFormat]="FORMAT.DATE_TIME_REVERT"
+                                              nzPlaceHolder="{{ 'survey_management.select_date' | translate }}">
+                                            </nz-date-picker>
+                                          </ng-container>
+                                        </div>
+                                        <vt-show-errors
+                                          [control]="question.controls.attribute.controls[attributeIndex].controls.content"
+                                          [controlName]="'survey_management.attribute_value' | translate">
+                                        </vt-show-errors>
+                                      </nz-form-control>
+                                    </nz-form-item>
+                                  </div>
+                                </ng-container>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </form>
+        </ng-container>
+
+        <!-- Hiện thị các câu hỏi -->
+        <ng-container *ngSwitchCase="PREVIEW_STEP.DISPLAY_QUESTION">
+          <div class="vt-block wrap-survey-info box-shadow mt-25">
+            <div class="vt-block-title orange-title title">
+              <b>{{ 'survey_management.info' | translate }}</b>
+            </div>
+            <div>
+              <div class="text-center mt-10">
+                <h3>{{surveyInfo.surveyFormName}}</h3>
+                <p>{{surveyInfo.description}}</p>
+              </div>
+              <hr>
+              <div class="mt-20">
+                <div class="questions">
+                  <!-- <div class="tutorial text-danger">
+                    * {{ 'common.required' | translate }}
+                  </div> -->
+                  <ng-container *ngFor="let question of displayData; index as index">
+                    <div class="question mt-20">
+                      <div class="question-content">
+                        <p>
+                          <span>
+                            <b>{{ 'survey_management.question_2' | translate }} {{index + 1}}: </b>
+                            {{question.content}}
+                          </span>
+                          (<span class="secondary-required" *ngIf="question.required">*</span>)
+                        </p>
+                        <div class="answers">
+                          <div [ngSwitch]="question.type">
+                            <ng-container *ngSwitchCase="QUESTION_TYPE.SINGLE">
+                              <nz-radio-group [(ngModel)]="question.answerContent">
+                                <ng-container *ngFor="let answer of question.listSubQuestion">
+                                  <label nz-radio [nzValue]="answer.choiceId">{{answer.choiceContent}}</label><br>
+                                </ng-container>
+                              </nz-radio-group>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="QUESTION_TYPE.MULTIPLE">
+                              <ng-container *ngFor="let answer of question.listSubQuestion">
+                                <label nz-checkbox [(ngModel)]="answer.isAnswer"
+                                  (ngModelChange)="onMutilQuestionChanged($event, answer.choiceId, index)">{{answer.choiceContent}}</label><br>
+                              </ng-container>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="QUESTION_TYPE.POINT">
+                              <nz-rate [(ngModel)]="question.answerContent" [nzCount]="question.rateValue" class="rate">
+                              </nz-rate>
+                              <div>
+                                <ng-container *ngFor="let answer of question.listSubQuestion">
+                                  <ng-container
+                                    *ngIf="answer.fromPoint <= question.answerContent && question.answerContent <= answer.toPoint">
+                                    <span class="range-description">{{answer.description}}</span>
+                                  </ng-container>
+                                </ng-container>
+                              </div>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="QUESTION_TYPE.FEEDBACK">
+                              <ng-container *ngFor="let answer of question.listSubQuestion">
+                                <textarea rows="4" nz-input [(ngModel)]="question.answerContent"
+                                  [maxlength]="answer.answerLimitLength"
+                                  placeholder="{{ 'survey_management.typing_your_answer' | translate }}">
+                                </textarea>
+                              </ng-container>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="clear-user-answer">
+              <span class="pointer" (click)="onClearAnswer()">
+                <i>{{ 'survey_management.clear_all_data' | translate }}</i>
+              </span>
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Hoàn thành -->
+        <ng-container *ngSwitchCase="PREVIEW_STEP.COMPLETE">
+          <vt-complete [subtitle]="subtitle"></vt-complete>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</vt-crud-layout>

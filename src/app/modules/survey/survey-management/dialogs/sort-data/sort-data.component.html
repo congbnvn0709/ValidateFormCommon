@@ -1,0 +1,42 @@
+<div>
+  <div class="ant-modal-confirm-body">
+    <div class="no-data no-data-survey mb-25">
+      <div>
+        <span class="d-flex justify-content-center align-items-center">
+          <span>{{ 'survey_management.drag_and_drop' | translate }}</span>
+          <span class="d-flex pl-10 pr-10"><i nz-icon nzType="holder" nzTheme="outline"></i></span>
+          <span>{{ 'survey_management.to_sort' | translate }}</span>
+        </span>
+      </div>
+    </div>
+    <div dndDropzone [dndHorizontal]="layout.dndHorizontal" dndEffectAllowed="move" (dndDrop)="onDrop($event)">
+      <div dndPlaceholderRef class="dndPlaceholder"></div>
+      <ng-container *ngFor="let f of data.controls; index as index">
+        <div class="sort-item">
+          <div [dndDraggable]="null" [dndDisableIf]="false" dndEffectAllowed="move" (dndStart)="onDragStart(index)"
+            (dndMoved)="onDragged(f, 'move', index)" class="draw">
+            <i nz-icon nzType="holder" nzTheme="outline"></i>
+          </div>
+          <span class="text-nowrap">
+            {{type === 'section' ? ('survey_management.section' | translate) : ('survey_management.question_2' | translate)}} {{index + 1}}: {{getValue(index)}}
+          </span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- Title -->
+<span *nzModalTitle>
+  {{type === 'section' ? ('survey_management.sort_section' | translate) : ('survey_management.sort_question' | translate)}}
+</span>
+
+<!-- Footer -->
+<div *nzModalFooter class="wrap-button">
+  <button (click)="onClose()" class="dialog-btn" nz-button [nzType]="'default'">
+    {{ 'common.cancel' | translate }}
+  </button>
+  <button (click)="onSave()" class="dialog-btn" nz-button [nzType]="'primary'">
+    {{ 'common.save' | translate }}
+  </button>
+</div>
